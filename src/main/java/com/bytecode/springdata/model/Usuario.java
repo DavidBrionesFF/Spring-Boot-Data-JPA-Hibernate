@@ -1,4 +1,4 @@
-package com.bytecode.springdata.repo;
+package com.bytecode.springdata.model;
 
 import javax.persistence.*;
 import java.util.Date;

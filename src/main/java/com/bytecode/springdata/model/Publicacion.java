@@ -1,18 +1,18 @@
-package com.bytecode.springdata.repo;
+package com.bytecode.springdata.model;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Nota")
-public class Nota {
+@Table(name = "Pubicacion")
+public class Publicacion {
     @Id
     @Column(name = "Id")
     private String id = UUID.randomUUID().toString().replace("-","");
 
-    @Column(name = "Nota")
-    private String nota;
+    @Column(name = "Publicacion")
+    private String publicacion;
 
     @Column(name = "FechaIntegracion")
     private Date fechaIntegracion = new Date();
@@ -28,12 +28,12 @@ public class Nota {
         this.id = id;
     }
 
-    public String getNota() {
-        return nota;
+    public String getPublicacion() {
+        return publicacion;
     }
 
-    public void setNota(String nota) {
-        this.nota = nota;
+    public void setPublicacion(String publicacion) {
+        this.publicacion = publicacion;
     }
 
     public Date getFechaIntegracion() {
@@ -51,4 +51,6 @@ public class Nota {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+
 }
