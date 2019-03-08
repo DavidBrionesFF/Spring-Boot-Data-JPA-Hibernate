@@ -1,9 +1,6 @@
 package com.bytecode.springdata.repo;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,4 +16,41 @@ public class Publicacion {
 
     @Column(name = "FechaIntegracion")
     private Date fechaIntegracion = new Date();
+
+    @ManyToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Usuario usuario;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(String publicacion) {
+        this.publicacion = publicacion;
+    }
+
+    public Date getFechaIntegracion() {
+        return fechaIntegracion;
+    }
+
+    public void setFechaIntegracion(Date fechaIntegracion) {
+        this.fechaIntegracion = fechaIntegracion;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+
 }
