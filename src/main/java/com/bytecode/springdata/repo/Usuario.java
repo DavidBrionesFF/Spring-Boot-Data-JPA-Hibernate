@@ -35,6 +35,9 @@ public class Usuario {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Configuracion.class)
     private Configuracion configuracion;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Nota.class, mappedBy = "usuario")
+    private List<Nota> notas;
+
     public String getId() {
         return id;
     }
@@ -97,5 +100,13 @@ public class Usuario {
 
     public void setConfiguracion(Configuracion configuracion) {
         this.configuracion = configuracion;
+    }
+
+    public List<Nota> getNotas() {
+        return notas;
+    }
+
+    public void setNotas(List<Nota> notas) {
+        this.notas = notas;
     }
 }
