@@ -1,10 +1,12 @@
 package com.bytecode.springdata.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Entity
 @Table(name = "Usuario")
@@ -26,17 +28,19 @@ public class Usuario {
     @Column(name = "FechaIntegracion")
     private Date fechaIntegracion = new Date();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Role.class, mappedBy = "usuarios")
-    private Set<Role> roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Role.class, mappedBy = "usuarios")
+    private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "usuario", targetEntity = Publicacion.class)
-    private List<Publicacion> publicaciones;
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "usuario", targetEntity = Publicacion.class)
+    private List<Publicacion> publicaciones ;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Configuracion.class)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Configuracion.class)
     private Configuracion configuracion;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Nota.class, mappedBy = "usuario")
-    private List<Nota> notas;
+    @Fetch(value = FetchMode.SUBSELECT)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Nota.class, mappedBy = "usuario")
+    private List<Nota> notas ;
 
     public String getId() {
         return id;
@@ -108,5 +112,20 @@ public class Usuario {
 
     public void setNotas(List<Nota> notas) {
         this.notas = notas;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", fechaIntegracion=" + fechaIntegracion +
+                ", roles=" + roles +
+                ", publicaciones=" + publicaciones +
+                ", configuracion=" + configuracion +
+                ", notas=" + notas +
+                '}';
     }
 }
